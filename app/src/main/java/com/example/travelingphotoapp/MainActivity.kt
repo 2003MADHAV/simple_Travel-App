@@ -6,17 +6,6 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.travelingphotoapp.ui.theme.TravelingPhotoAppTheme
-
 
 
 /*
@@ -85,19 +74,28 @@ class MainActivity : ComponentActivity() {
 }*/
 
 
+
+
 class MainActivity : ComponentActivity() {
     private var currentImage = 0
-    lateinit var image: ImageView
+    private lateinit var image: ImageView
 
-    var places = arrayOf(
-        "LotusTemple", "IndiaGate", "Banaras", "Amar Taj", "Nature Of Goaa", "Taj Mahal", "The Ganges River, Varanasi",
+    private val places = arrayOf(
+        "Lotus Temple", "India Gate", "Banaras", "Amar Taj", "Nature of Goa", "Taj Mahal", "The Ganges River, Varanasi",
         "Cola Beach, Goa", "Bada Bagh, Jaisalmer", "Tea Plantations", "Meenakshi Amman Temple, Madurai", "Golden Temple, Amritsar",
         "Red Fort, Delhi", "Bhagwan Mahavir Wildlife Sanctuary", "Bandra-Worli Sea Link, Mumbai"
     )
 
+    private val addresses = arrayOf(
+        "Address for Lotus Temple", "Address for India Gate", "Address for Banaras", "Address for Amar Taj", "Address for Nature of Goa",
+        "Address for Taj Mahal", "Address for The Ganges River, Varanasi", "Address for Cola Beach, Goa", "Address for Bada Bagh, Jaisalmer",
+        "Address for Tea Plantations", "Address for Meenakshi Amman Temple, Madurai", "Address for Golden Temple, Amritsar",
+        "Address for Red Fort, Delhi", "Address for Bhagwan Mahavir Wildlife Sanctuary", "Address for Bandra-Worli Sea Link, Mumbai"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity__main)
+        setContentView(R.layout.activity_main) // Ensure this matches the layout file name
 
         // Initialize the first image
         image = findViewById(R.id.pic1)
@@ -112,21 +110,21 @@ class MainActivity : ComponentActivity() {
         next.setOnClickListener {
             updateImage(alphaValue = 0f)
 
-            currentImage = (15 + currentImage + 1) % 15
+            currentImage = (currentImage + 1) % places.size
             updateImage(alphaValue = 1f)
 
             placeName.text = places[currentImage]
-            // placeAddress.text = addresses[currentImage]
+            placeAddress.text = addresses[currentImage]
         }
 
         prev.setOnClickListener {
             updateImage(alphaValue = 0f)
 
-            currentImage = (15 + currentImage - 1) % 15
+            currentImage = (currentImage - 1 + places.size) % places.size
             updateImage(alphaValue = 1f)
 
             placeName.text = places[currentImage]
-            // placeAddress.text = addresses[currentImage]
+            placeAddress.text = addresses[currentImage]
         }
     }
 
@@ -142,10 +140,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
-
-
 
 
 
